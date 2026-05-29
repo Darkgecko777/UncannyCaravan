@@ -25,6 +25,9 @@ var active_caravans: Array[Dictionary] = []  # Populated by CaravanSystem
 
 var last_save_unix: float = 0.0
 
+# Economy snapshot (populated by EconomySystem). Enables price persistence across sessions.
+var economy_prices: Dictionary = {}  # city_id -> { good_id: current_price }
+
 
 func _ready() -> void:
 	# Ensure all known goods have an entry (prevents null checks everywhere)
@@ -140,16 +143,23 @@ func to_dict() -> Dictionary:
 		"discovered_cities": discovered_cities.duplicate(),
 		"active_caravans": active_caravans.duplicate(true),
 		"last_save_unix": last_save_unix,
+		"economy_prices": economy_prices.duplicate(true),
 	}
 
 
 func from_dict(data: Dictionary) -> void:
 	cash = data.get("cash", STARTING_CASH)
 	inventory = data.get("inventory", STARTING_INVENTORY.duplicate())
-	upgrades = data.get("upgrades", upgrades)
+	upgrades = data.get("upgrades", upgrades.duplicate())
 	reputation = data.get("reputation", {})
 	discovered_cities = data.get("discovered_cities", ["tyr", "urik"])
 	active_caravans = data.get("active_caravans", [])
 	last_save_unix = data.get("last_save_unix", 0.0)
+	economy_prices = data.get("economy_prices", {})
 	_initialize_inventory_keys()
+
+	# Emit full state so UI can refresh after load (critical fix)
 	SignalBus.cash_changed.emit(cash)
+	for gid in inventory.keys():
+		SignalBus.inventory_changed.emit(gid, inventory[gid], 0)
+	SignalBus.active_caravans_changed.emit()

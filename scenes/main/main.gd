@@ -83,7 +83,8 @@ func _refresh_caravan_list() -> void:
 
 		var resolve_btn := Button.new()
 		resolve_btn.text = "Resolve Now (stub)"
-		resolve_btn.pressed.connect(func(): CaravanSystem._auto_resolve_stub(c.id))
+		var captured_id: String = c.get("id", "")
+		resolve_btn.pressed.connect(func(): CaravanSystem.resolve_caravan(captured_id, true))
 		row.add_child(resolve_btn)
 
 		caravan_list.add_child(row)

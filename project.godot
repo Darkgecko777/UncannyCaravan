@@ -13,8 +13,8 @@ config_version=5
 config/name="Uncanny Caravan"
 config/description="Harsh desert trading idle game on Athas. Send caravans, manage risk, exploit markets."
 config/version="0.1.0-dev"
-config/features=PackedStringArray("4.6", "Forward Plus")
 run/main_scene="res://scenes/main/main.tscn"
+config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://icon.svg"
 
 [autoload]
@@ -33,7 +33,6 @@ window/size/mode=2
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
 window/stretch/scale_mode="integer"
-window/vsync/vsync_mode=1
 
 [dotnet]
 

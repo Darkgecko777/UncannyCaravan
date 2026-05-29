@@ -75,9 +75,21 @@ func _gather_save_data() -> Dictionary:
 func _initialize_new_game() -> void:
 	GameState.cash = GameState.STARTING_CASH
 	GameState.inventory = GameState.STARTING_INVENTORY.duplicate()
+	GameState.upgrades = {
+		"caravan_slots": 1,
+		"base_capacity": 1,
+		"guard_quality": 0,
+	}
+	GameState.reputation = {}
+	GameState.discovered_cities = ["tyr", "urik"]
+	GameState.active_caravans = []
 	GameState.last_save_unix = Time.get_unix_time_from_system()
-	# Emit initial state so UI can react
+
+	# Full state emission (critical for UI on fresh start)
 	SignalBus.cash_changed.emit(GameState.cash)
+	for gid in GameState.inventory.keys():
+		SignalBus.inventory_changed.emit(gid, GameState.inventory[gid], 0)
+	SignalBus.active_caravans_changed.emit()
 
 
 func _process_offline_progress(last_save: float) -> void:

@@ -12,9 +12,14 @@ func _ready() -> void:
 
 
 func dispatch_caravan(route_id: String, cargo: Dictionary, guard_level: int) -> String:
-	# Very minimal stub — just creates an "instant" caravan for testing
+	# Very minimal stub — deducts goods immediately (proper behavior for Phase 1+)
 	var id := "c_" + str(Time.get_unix_time_from_system() as int) + "_" + str(_next_id)
 	_next_id += 1
+
+	# Actually remove the cargo from inventory now (fixes previous leak)
+	for good_id in cargo:
+		var qty: int = cargo[good_id]
+		GameState.remove_goods(good_id, qty)
 
 	var caravan := {
 		"id": id,
@@ -30,28 +35,33 @@ func dispatch_caravan(route_id: String, cargo: Dictionary, guard_level: int) -> 
 	SignalBus.caravan_dispatched.emit(id, route_id, cargo)
 
 	# Auto-resolve after short delay for Phase 0 testing (remove in Phase 2)
-	get_tree().create_timer(3.0).timeout.connect(func(): _auto_resolve_stub(id))
+	get_tree().create_timer(3.0).timeout.connect(func(): resolve_caravan(id, true))
 
 	return id
 
 
-func _auto_resolve_stub(caravan_id: String) -> void:
+# Public API — used by UI and internal timer. is_debug = true keeps fake profit/events for now.
+func resolve_caravan(caravan_id: String, is_debug: bool = false) -> void:
 	if not has_active_caravan(caravan_id):
 		return
 
 	var caravan := get_caravan(caravan_id)
-	var profit := 180 + randi_range(-40, 90)  # Fake profit
+	var profit := 180 + randi_range(-40, 90)  # Fake for stub
 	var events := ["Sandstorm slowed the caravan slightly."]
 
-	# Fake sell the cargo for testing
+	if not is_debug:
+		# Real profit calculation will go here in Phase 2
+		pass
+
+	# Sell the cargo at destination (stub uses "urik" prices)
 	for good_id in caravan.get("cargo", {}):
 		var qty: int = caravan.cargo[good_id]
-		GameState.add_cash(EconomySystem.get_sell_price("urik", good_id) * qty)
-		GameState.remove_goods(good_id, qty)  # already removed at dispatch normally
+		var sell_price := EconomySystem.get_sell_price("urik", good_id)
+		GameState.add_cash(sell_price * qty)
 
 	GameState.remove_active_caravan(caravan_id)
 	SignalBus.caravan_resolved.emit(caravan_id, profit, events, profit)
-	print("[CaravanSystem] Stub caravan resolved: ", caravan_id)
+	print("[CaravanSystem] Caravan resolved: ", caravan_id, " (debug=", is_debug, ")")
 
 
 func has_active_caravan(caravan_id: String) -> bool:
