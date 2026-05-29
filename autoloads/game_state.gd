@@ -26,7 +26,7 @@ var active_caravans: Array[Dictionary] = []  # Populated by CaravanSystem
 var last_save_unix: float = 0.0
 
 # Economy snapshot (populated by EconomySystem). Enables price persistence across sessions.
-var economy_prices: Dictionary = {}  # city_id -> { good_id: current_price }
+var economy_prices: Dictionary[String, Dictionary[String, int]] = {}  # city_id -> { good_id: current_price }
 
 
 func _ready() -> void:

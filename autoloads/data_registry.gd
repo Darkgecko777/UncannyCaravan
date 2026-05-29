@@ -5,9 +5,9 @@
 
 extends Node
 
-var goods: Dictionary = {}     # id -> TradeGoodData
-var cities: Dictionary = {}    # id -> CityData
-var routes: Dictionary = {}    # id -> TradeRouteData (Phase 2)
+var goods: Dictionary[String, TradeGoodData] = {}     # id -> TradeGoodData
+var cities: Dictionary[String, CityData] = {}         # id -> CityData
+var routes: Dictionary[String, TradeRouteData] = {}   # id -> TradeRouteData (Phase 2)
 
 var _loaded := false
 
@@ -49,11 +49,11 @@ func get_city(id: String) -> CityData:
 
 
 func get_all_good_ids() -> Array[String]:
-	return goods.keys() as Array[String]
+	return goods.keys()
 
 
 func get_all_city_ids() -> Array[String]:
-	return cities.keys() as Array[String]
+	return cities.keys()
 
 
 func is_loaded() -> bool:

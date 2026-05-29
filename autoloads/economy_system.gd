@@ -5,8 +5,8 @@
 
 extends Node
 
-var _prices: Dictionary = {}           # city_id -> { good_id: current_price }
-var _virtual_supply: Dictionary = {}   # city_id -> { good_id: pressure }  (higher = more supply = lower future prices)
+var _prices: Dictionary[String, Dictionary[String, int]] = {}           # city_id -> { good_id: current_price }
+var _virtual_supply: Dictionary[String, Dictionary[String, float]] = {}   # city_id -> { good_id: pressure }
 var _initialized := false
 
 const SUPPLY_SENSITIVITY := 0.018      # how strongly player sales move prices
@@ -22,8 +22,7 @@ func _ready() -> void:
 func _load_or_initialize_prices() -> void:
 	# Prefer persisted current prices
 	if GameState.economy_prices and not GameState.economy_prices.is_empty():
-		_prices = GameState.economy_prices.duplicate(true)
-		# Also restore virtual supply if we ever persist it (future-proof)
+		_prices = GameState.economy_prices.duplicate(true) as Dictionary[String, Dictionary[String, int]]
 		print("[EconomySystem] Loaded persisted prices from save.")
 	else:
 		_initialize_from_data_registry()
@@ -42,7 +41,7 @@ func _initialize_from_data_registry() -> void:
 	var good_ids: Array[String] = DataRegistry.get_all_good_ids()
 
 	for city_id: String in city_ids:
-		_prices[city_id] = {}
+		_prices[city_id] = {} as Dictionary[String, int]
 		for good_id: String in good_ids:
 			var good: TradeGoodData = DataRegistry.get_good(good_id)
 			var city: CityData = DataRegistry.get_city(city_id)
@@ -69,7 +68,7 @@ func _initialize_minimal_fallback() -> void:
 				"brine", "sting_nectar", "duneweave", "mekillot", "ghostroot"] as Array[String]
 
 	for city: String in cities:
-		_prices[city] = {}
+		_prices[city] = {} as Dictionary[String, int]
 		for g: String in goods:
 			_prices[city][g] = 50
 
@@ -78,9 +77,9 @@ func _initialize_minimal_fallback() -> void:
 
 func _initialize_virtual_supply() -> void:
 	_virtual_supply.clear()
-	for city_id in _prices:
-		_virtual_supply[city_id] = {}
-		for good_id in _prices[city_id]:
+	for city_id: String in _prices:
+		_virtual_supply[city_id] = {} as Dictionary[String, float]
+		for good_id: String in _prices[city_id]:
 			_virtual_supply[city_id][good_id] = 0.0  # neutral starting pressure
 
 
@@ -103,8 +102,8 @@ func get_buy_price(city_id: String, good_id: String) -> int:
 
 func force_market_tick() -> void:
 	# Apply slow natural regeneration + light noise (feels alive without wild swings)
-	for city_id in _prices:
-		for good_id in _prices[city_id]:
+	for city_id: String in _prices:
+		for good_id: String in _prices[city_id]:
 			# Regeneration toward equilibrium
 			var sp: float = _virtual_supply[city_id].get(good_id, 0.0) as float
 			sp = sp * (1.0 - REGEN_PER_TICK * 0.05) + randf_range(-0.6, 0.6)
@@ -121,8 +120,8 @@ func force_market_tick() -> void:
 	print("[EconomySystem] Market tick + supply regeneration applied.")
 
 
-func get_all_prices_for_city(city_id: String) -> Dictionary:
-	return _prices.get(city_id, {}).duplicate()
+func get_all_prices_for_city(city_id: String) -> Dictionary[String, int]:
+	return _prices.get(city_id, {}) as Dictionary[String, int]
 
 
 # Called when a caravan sells goods into a city (increases local supply → future prices drop)
@@ -143,7 +142,7 @@ func apply_trade_impact(city_id: String, good_id: String, qty: int, is_sell: boo
 
 
 func _persist_prices() -> void:
-	GameState.economy_prices = _prices.duplicate(true)
+	GameState.economy_prices = _prices.duplicate(true) as Dictionary[String, Dictionary[String, int]]
 
 
 # Helper for future UI / debug
