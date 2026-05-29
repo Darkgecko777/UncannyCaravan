@@ -10,7 +10,7 @@ const MAX_OFFLINE_SECONDS := 86400.0 * 1.5  # 36 hours cap for MVP (upgradeable 
 
 
 func save_game() -> bool:
-	var data := _gather_save_data()
+	var data: Dictionary = _gather_save_data()
 	var json_string := JSON.stringify(data, "\t", false)
 
 	var file := FileAccess.open(SAVE_PATH, FileAccess.WRITE)
@@ -66,7 +66,7 @@ func load_game() -> bool:
 
 
 func _gather_save_data() -> Dictionary:
-	var data := GameState.to_dict()
+	var data: Dictionary = GameState.to_dict()
 	data["version"] = SAVE_VERSION
 	data["last_save_unix"] = Time.get_unix_time_from_system()
 	return data
@@ -87,7 +87,8 @@ func _initialize_new_game() -> void:
 
 	# Full state emission (critical for UI on fresh start)
 	SignalBus.cash_changed.emit(GameState.cash)
-	for gid in GameState.inventory.keys():
+	for gid_variant in GameState.inventory.keys():
+		var gid: String = gid_variant as String
 		SignalBus.inventory_changed.emit(gid, GameState.inventory[gid], 0)
 	SignalBus.active_caravans_changed.emit()
 

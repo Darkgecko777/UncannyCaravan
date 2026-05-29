@@ -17,7 +17,8 @@ func dispatch_caravan(route_id: String, cargo: Dictionary, guard_level: int) -> 
 	_next_id += 1
 
 	# Actually remove the cargo from inventory now (fixes previous leak)
-	for good_id in cargo:
+	for good_id_variant in cargo:
+		var good_id: String = good_id_variant as String
 		var qty: int = cargo[good_id]
 		GameState.remove_goods(good_id, qty)
 
@@ -54,9 +55,10 @@ func resolve_caravan(caravan_id: String, is_debug: bool = false) -> void:
 		pass
 
 	# Sell the cargo at destination (stub uses "urik" prices)
-	for good_id in caravan.get("cargo", {}):
+	for good_id_variant in caravan.get("cargo", {}):
+		var good_id: String = good_id_variant as String
 		var qty: int = caravan.cargo[good_id]
-		var sell_price := EconomySystem.get_sell_price("urik", good_id)
+		var sell_price: int = EconomySystem.get_sell_price("urik", good_id)
 		GameState.add_cash(sell_price * qty)
 
 	GameState.remove_active_caravan(caravan_id)
@@ -65,14 +67,16 @@ func resolve_caravan(caravan_id: String, is_debug: bool = false) -> void:
 
 
 func has_active_caravan(caravan_id: String) -> bool:
-	for c in GameState.get_active_caravans():
+	for c_variant in GameState.get_active_caravans():
+		var c: Dictionary = c_variant
 		if c.get("id") == caravan_id:
 			return true
 	return false
 
 
 func get_caravan(caravan_id: String) -> Dictionary:
-	for c in GameState.get_active_caravans():
+	for c_variant in GameState.get_active_caravans():
+		var c: Dictionary = c_variant
 		if c.get("id") == caravan_id:
 			return c
 	return {}

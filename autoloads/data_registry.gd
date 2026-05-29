@@ -24,7 +24,7 @@ func _load_all_data() -> void:
 	var goods_files := DirAccess.get_files_at(goods_dir)
 	for f in goods_files:
 		if f.ends_with(".tres") or f.ends_with(".res"):
-			var res := load(goods_dir + f) as TradeGoodData
+			var res: TradeGoodData = load(goods_dir + f) as TradeGoodData
 			if res and res.id != "":
 				goods[res.id] = res
 
@@ -33,7 +33,7 @@ func _load_all_data() -> void:
 	var city_files := DirAccess.get_files_at(cities_dir)
 	for f in city_files:
 		if f.ends_with(".tres") or f.ends_with(".res"):
-			var res := load(cities_dir + f) as CityData
+			var res: CityData = load(cities_dir + f) as CityData
 			if res and res.id != "":
 				cities[res.id] = res
 

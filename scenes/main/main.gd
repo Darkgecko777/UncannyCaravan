@@ -48,10 +48,16 @@ func _on_inventory_changed(_good_id: String, _new_amount: int, _delta: int) -> v
 
 func _refresh_inventory() -> void:
 	var text := "[b]Inventory[/b]\n"
-	for good in GameState.inventory:
-		var qty := GameState.get_inventory(good)
-		if qty > 0 or good in ["bloodglass", "ambergrain"]:  # Always show key goods
-			text += "• %s: %d\n" % [good.capitalize(), qty]
+	for good_id_variant in GameState.inventory:
+		var good_id: String = good_id_variant as String
+		var qty: int = GameState.get_inventory(good_id)
+		if qty > 0:
+			var name: String = good_id.capitalize()
+			if DataRegistry and DataRegistry.is_loaded():
+				var gd: TradeGoodData = DataRegistry.get_good(good_id)
+				if gd:
+					name = gd.display_name
+			text += "• %s: %d\n" % [name, qty]
 	inventory_label.text = text
 
 
@@ -71,8 +77,8 @@ func _refresh_caravan_list() -> void:
 	for c in caravans:
 		var row := HBoxContainer.new()
 		var label := Label.new()
-		var eta := c.get("eta_unix", 0.0)
-		var remaining := max(0.0, eta - Time.get_unix_time_from_system())
+		var eta: float = c.get("eta_unix", 0.0) as float
+		var remaining: float = max(0.0, eta - Time.get_unix_time_from_system())
 		label.text = "%s → %s (%.0fs)  Cargo: %s" % [
 			c.get("route_id", "?"),
 			"DEST",

@@ -36,9 +36,9 @@ func _ready() -> void:
 
 func _initialize_inventory_keys() -> void:
 	# Will be expanded when full goods list is loaded from EconomySystem
-	var known_goods := ["bloodglass", "sunsteel", "agafari", "ambergrain", "veil_figs",
+	var known_goods: Array[String] = ["bloodglass", "sunsteel", "agafari", "ambergrain", "veil_figs",
 						"brine", "sting_nectar", "duneweave", "mekillot", "ghostroot"]
-	for g in known_goods:
+	for g: String in known_goods:
 		if not inventory.has(g):
 			inventory[g] = 0
 
@@ -78,7 +78,7 @@ func add_goods(good_id: String, amount: int) -> void:
 
 
 func remove_goods(good_id: String, amount: int) -> bool:
-	var current := inventory.get(good_id, 0)
+	var current: int = inventory.get(good_id, 0) as int
 	if current < amount:
 		return false
 	inventory[good_id] = current - amount

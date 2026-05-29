@@ -88,13 +88,13 @@ func get_sell_price(city_id: String, good_id: String) -> int:
 	if not _prices.has(city_id) or not _prices[city_id].has(good_id):
 		return 10
 
-	var base := float(_prices[city_id][good_id])
-	var supply_pressure := _virtual_supply.get(city_id, {}).get(good_id, 0.0)
+	var base: float = float(_prices[city_id][good_id])
+	var supply_pressure: float = _virtual_supply.get(city_id, {}).get(good_id, 0.0) as float
 
 	# Simple but effective supply/demand model
 	# High virtual_supply (lots of recent sales into this market) → lower prices
-	var adjusted := base * (1.0 - supply_pressure * SUPPLY_SENSITIVITY)
-	return int(max(3, adjusted))
+	var adjusted: float = base * (1.0 - supply_pressure * SUPPLY_SENSITIVITY)
+	return int(max(3.0, adjusted))
 
 
 func get_buy_price(city_id: String, good_id: String) -> int:
@@ -106,7 +106,7 @@ func force_market_tick() -> void:
 	for city_id in _prices:
 		for good_id in _prices[city_id]:
 			# Regeneration toward equilibrium
-			var sp := _virtual_supply[city_id].get(good_id, 0.0)
+			var sp: float = _virtual_supply[city_id].get(good_id, 0.0) as float
 			sp = sp * (1.0 - REGEN_PER_TICK * 0.05) + randf_range(-0.6, 0.6)
 			_virtual_supply[city_id][good_id] = clamp(sp, -8.0, 18.0)
 
@@ -130,13 +130,13 @@ func apply_trade_impact(city_id: String, good_id: String, qty: int, is_sell: boo
 	if not _prices.has(city_id) or not _prices[city_id].has(good_id):
 		return
 
-	var pressure_delta := qty * (0.035 if is_sell else -0.022)
+	var pressure_delta: float = qty * (0.035 if is_sell else -0.022)
 	_virtual_supply[city_id][good_id] = _virtual_supply[city_id].get(good_id, 0.0) + pressure_delta
 
 	# Immediate small price reaction for feedback
-	var current := float(_prices[city_id][good_id])
-	var immediate := 0.008 if is_sell else -0.006
-	_prices[city_id][good_id] = int(max(3, current * (1.0 + immediate * qty)))
+	var current: float = float(_prices[city_id][good_id])
+	var immediate: float = 0.008 if is_sell else -0.006
+	_prices[city_id][good_id] = int(max(3.0, current * (1.0 + immediate * qty)))
 
 	SignalBus.prices_updated.emit(city_id)
 	_persist_prices()
