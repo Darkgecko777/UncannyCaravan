@@ -38,12 +38,12 @@ func _initialize_from_data_registry() -> void:
 		_initialize_minimal_fallback()
 		return
 
-	var city_ids := DataRegistry.get_all_city_ids()
-	var good_ids := DataRegistry.get_all_good_ids()
+	var city_ids: Array[String] = DataRegistry.get_all_city_ids()
+	var good_ids: Array[String] = DataRegistry.get_all_good_ids()
 
-	for city_id in city_ids:
+	for city_id: String in city_ids:
 		_prices[city_id] = {}
-		for good_id in good_ids:
+		for good_id: String in good_ids:
 			var good: TradeGoodData = DataRegistry.get_good(good_id)
 			var city: CityData = DataRegistry.get_city(city_id)
 			var price := float(good.base_price)
@@ -62,15 +62,15 @@ func _initialize_from_data_registry() -> void:
 
 func _initialize_minimal_fallback() -> void:
 	# Last-resort deterministic values (should rarely be reached)
-	var cities := ["tyr", "urik", "balic", "gulg", "nibenay"]
-	var goods := DataRegistry.get_all_good_ids()
+	var cities: Array[String] = ["tyr", "urik", "balic", "gulg", "nibenay"]
+	var goods: Array[String] = DataRegistry.get_all_good_ids()
 	if goods.is_empty():
 		goods = ["bloodglass", "sunsteel", "agafari", "ambergrain", "veil_figs",
-				"brine", "sting_nectar", "duneweave", "mekillot", "ghostroot"]
+				"brine", "sting_nectar", "duneweave", "mekillot", "ghostroot"] as Array[String]
 
-	for city in cities:
+	for city: String in cities:
 		_prices[city] = {}
-		for g in goods:
+		for g: String in goods:
 			_prices[city][g] = 50
 
 	_persist_prices()

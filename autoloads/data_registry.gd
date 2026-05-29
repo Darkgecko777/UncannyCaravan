@@ -49,11 +49,11 @@ func get_city(id: String) -> CityData:
 
 
 func get_all_good_ids() -> Array[String]:
-	return goods.keys()
+	return goods.keys() as Array[String]
 
 
 func get_all_city_ids() -> Array[String]:
-	return cities.keys()
+	return cities.keys() as Array[String]
 
 
 func is_loaded() -> bool:
