@@ -11,12 +11,38 @@ config_version=5
 [application]
 
 config/name="Uncanny Caravan"
+config/description="Harsh desert trading idle game on Athas. Send caravans, manage risk, exploit markets."
+config/version="0.1.0-dev"
 config/features=PackedStringArray("4.6", "Forward Plus")
+run/main_scene="res://scenes/main/main.tscn"
 config/icon="res://icon.svg"
+
+[autoload]
+
+SignalBus="*res://autoloads/signal_bus.gd"
+SaveSystem="*res://autoloads/save_system.gd"
+GameState="*res://autoloads/game_state.gd"
+EconomySystem="*res://autoloads/economy_system.gd"
+CaravanSystem="*res://autoloads/caravan_system.gd"
+
+[display]
+
+window/size/viewport_width=960
+window/size/viewport_height=540
+window/size/mode=2
+window/stretch/mode="canvas_items"
+window/stretch/aspect="expand"
+window/stretch/scale_mode="integer"
+window/vsync/vsync_mode=1
 
 [dotnet]
 
 project/assembly_name="Uncanny Caravan"
+
+[gui]
+
+theme/default_font_antialiasing=0
+theme/default_font_hinting=0
 
 [physics]
 
@@ -24,4 +50,5 @@ project/assembly_name="Uncanny Caravan"
 
 [rendering]
 
+textures/canvas_textures/default_texture_filter=0
 rendering_device/driver.windows="d3d12"

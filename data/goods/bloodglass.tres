@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="TradeGoodData" load_steps=2 format=3 uid="uid://good_bloodglass"]
+
+[ext_resource type="Script" path="res://resources/trade_good_data.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+id = "bloodglass"
+display_name = "Bloodglass Shards"
+base_price = 45
+unit_weight = 1
+flavor_text = "Volcanic glass from Urik's quarries. The everyday substitute for iron in a metal-starved world."
+category = "raw"
