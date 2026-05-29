@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="TradeGoodData" load_steps=2 format=3 uid="uid://good_ambergrain"]
+
+[ext_resource type="Script" path="res://resources/trade_good_data.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+id = "ambergrain"
+display_name = "Ambergrain Sacks"
+base_price = 22
+unit_weight = 1
+flavor_text = "Hardy wheat and barley from silt-nourished fields. The caloric backbone of the Tablelands."
+category = "bulk"

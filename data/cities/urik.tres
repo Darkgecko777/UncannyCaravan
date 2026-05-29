@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="CityData" load_steps=2 format=3 uid="uid://city_urik"]
+
+[ext_resource type="Script" path="res://resources/city_data.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+id = "urik"
+display_name = "Urik"
+flavor_text = "Hamanu's militaristic domain. Obsidian quarries ring the city. Strict templar oversight on all trade."
+signature_goods = ["bloodglass"]
+scarce_goods = ["sunsteel", "agafari"]
+base_risk_modifier = 0.15

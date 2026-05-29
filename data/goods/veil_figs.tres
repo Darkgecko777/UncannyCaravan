@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="TradeGoodData" load_steps=2 format=3 uid="uid://good_veil_figs"]
+
+[ext_resource type="Script" path="res://resources/trade_good_data.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+id = "veil_figs"
+display_name = "Veil Figs"
+base_price = 55
+unit_weight = 1
+flavor_text = "Sun-dried figs from terraced orchards. Portable luxury, caravan staple, and noble treat."
+category = "luxury"

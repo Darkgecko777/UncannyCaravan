@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="CityData" load_steps=2 format=3 uid="uid://city_tyr"]
+
+[ext_resource type="Script" path="res://resources/city_data.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+id = "tyr"
+display_name = "Tyr"
+flavor_text = "The Free City at the foot of the Ringing Mountains. Fragile liberty after Kalak's fall. Major source of true iron (Sunsteel)."
+signature_goods = ["sunsteel", "mekillot"]
+scarce_goods = ["bloodglass", "agafari"]
+base_risk_modifier = 0.05
