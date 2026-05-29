@@ -40,9 +40,9 @@ func _initialize_from_data_registry() -> void:
 	var city_ids: Array[String] = DataRegistry.get_all_city_ids()
 	var good_ids: Array[String] = DataRegistry.get_all_good_ids()
 
-	for city_id: String in city_ids:
+	for city_id in city_ids:
 		_prices[city_id] = {}
-		for good_id: String in good_ids:
+		for good_id in good_ids:
 			var good: TradeGoodData = DataRegistry.get_good(good_id)
 			var city: CityData = DataRegistry.get_city(city_id)
 			var price := float(good.base_price)
@@ -67,9 +67,9 @@ func _initialize_minimal_fallback() -> void:
 		goods = ["bloodglass", "sunsteel", "agafari", "ambergrain", "veil_figs",
 				"brine", "sting_nectar", "duneweave", "mekillot", "ghostroot"] as Array[String]
 
-	for city: String in cities:
+	for city in cities:
 		_prices[city] = {}
-		for g: String in goods:
+		for g in goods:
 			_prices[city][g] = 50
 
 	_persist_prices()
@@ -77,9 +77,9 @@ func _initialize_minimal_fallback() -> void:
 
 func _initialize_virtual_supply() -> void:
 	_virtual_supply.clear()
-	for city_id: String in _prices:
+	for city_id in _prices:
 		_virtual_supply[city_id] = {}
-		for good_id: String in _prices[city_id]:
+		for good_id in _prices[city_id]:
 			_virtual_supply[city_id][good_id] = 0.0  # neutral starting pressure
 
 
@@ -102,8 +102,8 @@ func get_buy_price(city_id: String, good_id: String) -> int:
 
 func force_market_tick() -> void:
 	# Apply slow natural regeneration + light noise (feels alive without wild swings)
-	for city_id: String in _prices:
-		for good_id: String in _prices[city_id]:
+	for city_id in _prices:
+		for good_id in _prices[city_id]:
 			# Regeneration toward equilibrium
 			var sp: float = _virtual_supply[city_id].get(good_id, 0.0) as float
 			sp = sp * (1.0 - REGEN_PER_TICK * 0.05) + randf_range(-0.6, 0.6)
