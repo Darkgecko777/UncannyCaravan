@@ -7,7 +7,7 @@ extends Node
 
 var goods: Dictionary[String, TradeGoodData] = {}     # id -> TradeGoodData
 var cities: Dictionary[String, CityData] = {}         # id -> CityData
-var routes: Dictionary[String, TradeRouteData] = {}   # id -> TradeRouteData (Phase 2)
+var routes: Dictionary = {}                           # id -> TradeRouteData (Phase 2) - typed when routes data exists
 
 var _loaded := false
 

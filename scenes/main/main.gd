@@ -66,7 +66,7 @@ func _refresh_caravan_list() -> void:
 	for child in caravan_list.get_children():
 		child.queue_free()
 
-	var caravans := GameState.get_active_caravans()
+	var caravans: Array[Dictionary] = GameState.get_active_caravans()
 	if caravans.is_empty():
 		var l := Label.new()
 		l.text = "No active caravans"
@@ -74,7 +74,8 @@ func _refresh_caravan_list() -> void:
 		caravan_list.add_child(l)
 		return
 
-	for c in caravans:
+	for c_variant in caravans:
+		var c: Dictionary = c_variant
 		var row := HBoxContainer.new()
 		var label := Label.new()
 		var eta: float = c.get("eta_unix", 0.0) as float
