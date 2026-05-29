@@ -167,7 +167,7 @@ layout_mode = 2
 [node name="FooterLabel" type="Label" parent="UI/Margin/VBox/Footer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 11
-modulate = Color(0.6, 0.6, 0.6)
+modulate = Color(0.6, 0.6, 0.6, 1)
 text = "Uncanny Caravan — Godot 4.6 MVP • Clarity • Immersion • Agency • Save works • Close window to auto-save"
 
 [connection signal="pressed" from="UI/Margin/VBox/Body/RightPanel/DebugBox/Margin/VBox/Buttons/GiveCashBtn" to="." method="_on_give_cash_pressed"]
