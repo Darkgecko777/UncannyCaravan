@@ -152,13 +152,25 @@ func from_dict(data: Dictionary) -> void:
 	inventory = data.get("inventory", STARTING_INVENTORY.duplicate())
 	upgrades = data.get("upgrades", upgrades.duplicate())
 	reputation = data.get("reputation", {})
-	discovered_cities = data.get("discovered_cities", ["tyr", "urik"])
-	active_caravans = data.get("active_caravans", [])
+
+	# JSON returns untyped Array — convert explicitly for typed Array[String]
+	var raw_cities = data.get("discovered_cities", ["tyr", "urik"])
+	discovered_cities.clear()
+	for city in raw_cities:
+		discovered_cities.append(str(city))
+
+	# Same for Array[Dictionary]
+	var raw_caravans = data.get("active_caravans", [])
+	active_caravans.clear()
+	for c in raw_caravans:
+		if c is Dictionary:
+			active_caravans.append(c)
+
 	last_save_unix = data.get("last_save_unix", 0.0)
 	economy_prices = data.get("economy_prices", {})
 	_initialize_inventory_keys()
 
-	# Emit full state so UI can refresh after load (critical fix)
+	# Emit full state so UI can refresh after load
 	SignalBus.cash_changed.emit(cash)
 	for gid in inventory.keys():
 		SignalBus.inventory_changed.emit(gid, inventory[gid], 0)
