@@ -1,6 +1,6 @@
 # autoloads/economy_system.gd
-# Real (simple) supply/demand driven price model for Athas markets.
-# Prices are derived from TradeGoodData.base_price + city signature/scarce modifiers
+# Simple supply/demand driven price model.
+# Prices derive from TradeGoodData.base_price + city signature/scarce modifiers
 # + runtime virtual_supply pressure (player trades + random shocks + slow regeneration).
 
 extends Node
@@ -16,7 +16,7 @@ const REGEN_PER_TICK := 0.8            # slow natural regeneration of supply pre
 func _ready() -> void:
 	_load_or_initialize_prices()
 	_initialized = true
-	print("[EconomySystem] Real economy model active with %d cities." % _prices.size())
+	print("[EconomySystem] Economy model active with %d cities." % _prices.size())
 
 
 func _load_or_initialize_prices() -> void:
@@ -47,7 +47,7 @@ func _initialize_from_data_registry() -> void:
 			var city: CityData = DataRegistry.get_city(city_id)
 			var price := float(good.base_price)
 
-			# Lore-driven city modifiers (signature goods cheaper, scarce goods more expensive)
+			# City modifiers (signature goods cheaper, scarce goods more expensive)
 			if city and good_id in city.signature_goods:
 				price *= 0.82
 			elif city and good_id in city.scarce_goods:

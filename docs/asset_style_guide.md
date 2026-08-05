@@ -1,6 +1,6 @@
 # Uncanny Caravan — Pixel Art Asset Style Guide & Prompts
 
-**Target Aesthetic**: Retro pixel art, Dark Sun / Dune Trader on Athas. Harsh, utilitarian, desperate beauty. High readability at 32x32 or smaller.
+**Target Aesthetic**: Retro pixel art. Harsh, utilitarian, desperate beauty of a desert trading world. High readability at 32x32 or smaller.
 
 ## Core Palette (28 colors max — use sparingly)
 - Dusty Ochre: #C9A16B (primary sand/cloth)
@@ -19,7 +19,7 @@ Always include the full style prefix + subject.
 
 **Master Prompt Prefix** (copy-paste every time):
 ```
-32x32 pixel art icon, retro 16-bit style, sharp clean pixels with no anti-aliasing or blur, limited 28-color Athas desert palette: dusty ochre #C9A16B, blood red #8B2E2E, bone white #E8DFC9, obsidian black #1F1F24, turquoise accent #3A9B9B, deep umber #5C4033, faded parchment #D4C4A8, dark teal #2A4A4A. High contrast, readable at small size, harsh top-left lighting, utilitarian worn look for Dark Sun / Dune Trader trading goods. Solid background or subtle sand texture. 
+32x32 pixel art icon, retro 16-bit style, sharp clean pixels with no anti-aliasing or blur, limited 28-color desert palette: dusty ochre #C9A16B, blood red #8B2E2E, bone white #E8DFC9, obsidian black #1F1F24, turquoise accent #3A9B9B, deep umber #5C4033, faded parchment #D4C4A8, dark teal #2A4A4A. High contrast, readable at small size, harsh top-left lighting, utilitarian worn look for desert trading goods. Solid background or subtle sand texture. 
 ```
 
 Then append the specific subject description.
@@ -41,8 +41,5 @@ Then append the specific subject description.
 - Mode: Lossless
 - Mipmaps: Disabled
 - In project or per-texture: Canvas Texture Filter = Nearest
-
-## Example Full Prompt (Bloodglass)
-[see above + "Icon of a stack of dark volcanic obsidian shards / bloodglass, chipped and sharp, simple but distinctive silhouette."]
 
 Keep a log of every prompt used here for reproducibility and consistency fixes.
