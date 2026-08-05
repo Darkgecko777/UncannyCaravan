@@ -7,172 +7,191 @@ script = ExtResource("1_main")
 
 [node name="UI" type="CanvasLayer" parent="."]
 
-[node name="Margin" type="MarginContainer" parent="UI"]
+[node name="Root" type="MarginContainer" parent="UI"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 16
-theme_override_constants/margin_top = 12
-theme_override_constants/margin_right = 16
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 14
+theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 12
 
-[node name="VBox" type="VBoxContainer" parent="UI/Margin"]
+[node name="VBox" type="VBoxContainer" parent="UI/Root"]
 layout_mode = 2
-theme_override_constants/separation = 8
+theme_override_constants/separation = 10
 
-[node name="Header" type="HBoxContainer" parent="UI/Margin/VBox"]
+[node name="Header" type="HBoxContainer" parent="UI/Root/VBox"]
 layout_mode = 2
+theme_override_constants/separation = 16
 
-[node name="Title" type="Label" parent="UI/Margin/VBox/Header"]
+[node name="Title" type="Label" parent="UI/Root/VBox/Header"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 22
-text = "UNCANNY CARAVAN — Phase 0 Skeleton"
+theme_override_font_sizes/font_size = 20
+text = "UNCANNY CARAVAN"
 
-[node name="Spacer" type="Control" parent="UI/Margin/VBox/Header"]
+[node name="StatusLabel" type="Label" parent="UI/Root/VBox/Header"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 13
+modulate = Color(0.65, 0.65, 0.65, 1)
+text = "Ready"
+
+[node name="Spacer" type="Control" parent="UI/Root/VBox/Header"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="CashLabel" type="Label" parent="UI/Margin/VBox/Header"]
+[node name="CashLabel" type="Label" parent="UI/Root/VBox/Header"]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_font_sizes/font_size = 18
-text = "Ceramic Bits: 850"
+text = "850  Ceramic Bits"
+horizontal_alignment = 2
 
-[node name="Body" type="HBoxContainer" parent="UI/Margin/VBox"]
+[node name="Body" type="HBoxContainer" parent="UI/Root/VBox"]
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_constants/separation = 16
+theme_override_constants/separation = 14
 
-[node name="LeftPanel" type="VBoxContainer" parent="UI/Margin/VBox/Body"]
+[node name="LeftColumn" type="VBoxContainer" parent="UI/Root/VBox/Body"]
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_vertical = 3
+size_flags_stretch_ratio = 1.15
+theme_override_constants/separation = 10
 
-[node name="InventoryBox" type="PanelContainer" parent="UI/Margin/VBox/Body/LeftPanel"]
+[node name="HoldingsPanel" type="PanelContainer" parent="UI/Root/VBox/Body/LeftColumn"]
 layout_mode = 2
 size_flags_vertical = 3
+size_flags_stretch_ratio = 1.2
 
-[node name="Margin" type="MarginContainer" parent="UI/Margin/VBox/Body/LeftPanel/InventoryBox"]
+[node name="Margin" type="MarginContainer" parent="UI/Root/VBox/Body/LeftColumn/HoldingsPanel"]
 layout_mode = 2
-theme_override_constants/margin_left = 8
-theme_override_constants/margin_top = 6
-theme_override_constants/margin_right = 8
-theme_override_constants/margin_bottom = 6
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 8
 
-[node name="InventoryLabel" type="RichTextLabel" parent="UI/Margin/VBox/Body/LeftPanel/InventoryBox/Margin"]
+[node name="InventoryLabel" type="RichTextLabel" parent="UI/Root/VBox/Body/LeftColumn/HoldingsPanel/Margin"]
 unique_name_in_owner = true
 layout_mode = 2
 bbcode_enabled = true
-fit_content = true
-text = "[b]Inventory[/b]"
+fit_content = false
+scroll_active = true
+text = "[b]HOLDINGS[/b]"
 
-[node name="CaravansBox" type="PanelContainer" parent="UI/Margin/VBox/Body/LeftPanel"]
+[node name="CaravansPanel" type="PanelContainer" parent="UI/Root/VBox/Body/LeftColumn"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Margin" type="MarginContainer" parent="UI/Margin/VBox/Body/LeftPanel/CaravansBox"]
+[node name="Margin" type="MarginContainer" parent="UI/Root/VBox/Body/LeftColumn/CaravansPanel"]
 layout_mode = 2
-theme_override_constants/margin_left = 8
-theme_override_constants/margin_top = 6
-theme_override_constants/margin_right = 8
-theme_override_constants/margin_bottom = 6
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 8
 
-[node name="VBox" type="VBoxContainer" parent="UI/Margin/VBox/Body/LeftPanel/CaravansBox/Margin"]
+[node name="VBox" type="VBoxContainer" parent="UI/Root/VBox/Body/LeftColumn/CaravansPanel/Margin"]
 layout_mode = 2
+theme_override_constants/separation = 6
 
-[node name="Label" type="Label" parent="UI/Margin/VBox/Body/LeftPanel/CaravansBox/Margin/VBox"]
+[node name="CaravanHeader" type="Label" parent="UI/Root/VBox/Body/LeftColumn/CaravansPanel/Margin/VBox"]
 layout_mode = 2
-text = "Active Caravans (stub)"
+theme_override_font_sizes/font_size = 14
+text = "ON THE ROAD"
 
-[node name="CaravanList" type="VBoxContainer" parent="UI/Margin/VBox/Body/LeftPanel/CaravansBox/Margin/VBox"]
+[node name="CaravanList" type="VBoxContainer" parent="UI/Root/VBox/Body/LeftColumn/CaravansPanel/Margin/VBox"]
 unique_name_in_owner = true
 layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 4
 
-[node name="RightPanel" type="VBoxContainer" parent="UI/Margin/VBox/Body"]
+[node name="RightColumn" type="VBoxContainer" parent="UI/Root/VBox/Body"]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_constants/separation = 10
 
-[node name="DebugBox" type="PanelContainer" parent="UI/Margin/VBox/Body/RightPanel"]
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="Margin" type="MarginContainer" parent="UI/Margin/VBox/Body/RightPanel/DebugBox"]
-layout_mode = 2
-theme_override_constants/margin_left = 8
-theme_override_constants/margin_top = 6
-theme_override_constants/margin_right = 8
-theme_override_constants/margin_bottom = 6
-
-[node name="VBox" type="VBoxContainer" parent="UI/Margin/VBox/Body/RightPanel/DebugBox/Margin"]
+[node name="ToolsPanel" type="PanelContainer" parent="UI/Root/VBox/Body/RightColumn"]
 layout_mode = 2
 
-[node name="DebugTitle" type="Label" parent="UI/Margin/VBox/Body/RightPanel/DebugBox/Margin/VBox"]
+[node name="Margin" type="MarginContainer" parent="UI/Root/VBox/Body/RightColumn/ToolsPanel"]
 layout_mode = 2
-text = "DEBUG CONTROLS (Phase 0)"
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 8
+
+[node name="VBox" type="VBoxContainer" parent="UI/Root/VBox/Body/RightColumn/ToolsPanel/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="ToolsHeader" type="Label" parent="UI/Root/VBox/Body/RightColumn/ToolsPanel/Margin/VBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 13
+modulate = Color(0.7, 0.7, 0.7, 1)
+text = "TOOLS"
 horizontal_alignment = 1
 
-[node name="Buttons" type="GridContainer" parent="UI/Margin/VBox/Body/RightPanel/DebugBox/Margin/VBox"]
+[node name="Buttons" type="GridContainer" parent="UI/Root/VBox/Body/RightColumn/ToolsPanel/Margin/VBox"]
 layout_mode = 2
 columns = 2
 theme_override_constants/h_separation = 6
-theme_override_constants/v_separation = 6
+theme_override_constants/v_separation = 5
 
-[node name="GiveCashBtn" type="Button" parent="UI/Margin/VBox/Body/RightPanel/DebugBox/Margin/VBox/Buttons"]
+[node name="GiveCashBtn" type="Button" parent="UI/Root/VBox/Body/RightColumn/ToolsPanel/Margin/VBox/Buttons"]
 layout_mode = 2
 text = "+500 Bits"
 
-[node name="GiveGoodsBtn" type="Button" parent="UI/Margin/VBox/Body/RightPanel/DebugBox/Margin/VBox/Buttons"]
+[node name="GiveGoodsBtn" type="Button" parent="UI/Root/VBox/Body/RightColumn/ToolsPanel/Margin/VBox/Buttons"]
 layout_mode = 2
-text = "Add Test Goods"
+text = "Add Goods"
 
-[node name="MarketTickBtn" type="Button" parent="UI/Margin/VBox/Body/RightPanel/DebugBox/Margin/VBox/Buttons"]
+[node name="MarketTickBtn" type="Button" parent="UI/Root/VBox/Body/RightColumn/ToolsPanel/Margin/VBox/Buttons"]
 layout_mode = 2
-text = "Force Market Tick"
+text = "Market Tick"
 
-[node name="SendCaravanBtn" type="Button" parent="UI/Margin/VBox/Body/RightPanel/DebugBox/Margin/VBox/Buttons"]
+[node name="SendCaravanBtn" type="Button" parent="UI/Root/VBox/Body/RightColumn/ToolsPanel/Margin/VBox/Buttons"]
 layout_mode = 2
-text = "Send Test Caravan (stub)"
+text = "Test Caravan"
 
-[node name="SaveBtn" type="Button" parent="UI/Margin/VBox/Body/RightPanel/DebugBox/Margin/VBox/Buttons"]
+[node name="SaveBtn" type="Button" parent="UI/Root/VBox/Body/RightColumn/ToolsPanel/Margin/VBox/Buttons"]
 layout_mode = 2
 text = "Force Save"
 
-[node name="OfflineBtn" type="Button" parent="UI/Margin/VBox/Body/RightPanel/DebugBox/Margin/VBox/Buttons"]
+[node name="OfflineBtn" type="Button" parent="UI/Root/VBox/Body/RightColumn/ToolsPanel/Margin/VBox/Buttons"]
 layout_mode = 2
-text = "Simulate 4h Offline"
+text = "4h Offline"
 
-[node name="LogBox" type="PanelContainer" parent="UI/Margin/VBox/Body/RightPanel"]
+[node name="LogPanel" type="PanelContainer" parent="UI/Root/VBox/Body/RightColumn"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Margin" type="MarginContainer" parent="UI/Margin/VBox/Body/RightPanel/LogBox"]
+[node name="Margin" type="MarginContainer" parent="UI/Root/VBox/Body/RightColumn/LogPanel"]
 layout_mode = 2
-theme_override_constants/margin_left = 6
-theme_override_constants/margin_top = 4
-theme_override_constants/margin_right = 6
-theme_override_constants/margin_bottom = 4
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 6
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 6
 
-[node name="DebugLog" type="RichTextLabel" parent="UI/Margin/VBox/Body/RightPanel/LogBox/Margin"]
+[node name="EventLog" type="RichTextLabel" parent="UI/Root/VBox/Body/RightColumn/LogPanel/Margin"]
 unique_name_in_owner = true
 layout_mode = 2
 bbcode_enabled = true
 scroll_following = true
-text = "[color=#888888]Event log...[/color]\n"
+text = "[color=#666666]Event log…[/color]\n"
 
-[node name="Footer" type="HBoxContainer" parent="UI/Margin/VBox"]
+[node name="Footer" type="HBoxContainer" parent="UI/Root/VBox"]
 layout_mode = 2
 
-[node name="FooterLabel" type="Label" parent="UI/Margin/VBox/Footer"]
+[node name="FooterLabel" type="Label" parent="UI/Root/VBox/Footer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 11
-modulate = Color(0.6, 0.6, 0.6, 1)
-text = "Uncanny Caravan — Godot 4.6 MVP • Clarity • Immersion • Agency • Save works • Close window to auto-save"
+modulate = Color(0.45, 0.45, 0.45, 1)
+text = "Uncanny Caravan  ·  Phase 0 foundation  ·  Close window to seal state"
 
-[connection signal="pressed" from="UI/Margin/VBox/Body/RightPanel/DebugBox/Margin/VBox/Buttons/GiveCashBtn" to="." method="_on_give_cash_pressed"]
-[connection signal="pressed" from="UI/Margin/VBox/Body/RightPanel/DebugBox/Margin/VBox/Buttons/GiveGoodsBtn" to="." method="_on_give_goods_pressed"]
-[connection signal="pressed" from="UI/Margin/VBox/Body/RightPanel/DebugBox/Margin/VBox/Buttons/MarketTickBtn" to="." method="_on_market_tick_pressed"]
-[connection signal="pressed" from="UI/Margin/VBox/Body/RightPanel/DebugBox/Margin/VBox/Buttons/SendCaravanBtn" to="." method="_on_send_test_caravan_pressed"]
-[connection signal="pressed" from="UI/Margin/VBox/Body/RightPanel/DebugBox/Margin/VBox/Buttons/SaveBtn" to="." method="_on_save_pressed"]
-[connection signal="pressed" from="UI/Margin/VBox/Body/RightPanel/DebugBox/Margin/VBox/Buttons/OfflineBtn" to="." method="_on_force_offline_pressed"]
+[connection signal="pressed" from="UI/Root/VBox/Body/RightColumn/ToolsPanel/Margin/VBox/Buttons/GiveCashBtn" to="." method="_on_give_cash_pressed"]
+[connection signal="pressed" from="UI/Root/VBox/Body/RightColumn/ToolsPanel/Margin/VBox/Buttons/GiveGoodsBtn" to="." method="_on_give_goods_pressed"]
+[connection signal="pressed" from="UI/Root/VBox/Body/RightColumn/ToolsPanel/Margin/VBox/Buttons/MarketTickBtn" to="." method="_on_market_tick_pressed"]
+[connection signal="pressed" from="UI/Root/VBox/Body/RightColumn/ToolsPanel/Margin/VBox/Buttons/SendCaravanBtn" to="." method="_on_send_test_caravan_pressed"]
+[connection signal="pressed" from="UI/Root/VBox/Body/RightColumn/ToolsPanel/Margin/VBox/Buttons/SaveBtn" to="." method="_on_save_pressed"]
+[connection signal="pressed" from="UI/Root/VBox/Body/RightColumn/ToolsPanel/Margin/VBox/Buttons/OfflineBtn" to="." method="_on_force_offline_pressed"]
