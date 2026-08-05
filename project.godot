@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Uncanny Caravan"
-config/description="Harsh desert trading idle game on Athas. Send caravans, manage risk, exploit markets."
+config/description="Harsh desert trading and intrigue. Buy on knowledge, risk the journey, convert an edge into profit before rival houses or the desert close the gap."
 config/version="0.1.0-dev"
 run/main_scene="res://scenes/main/main.tscn"
 config/features=PackedStringArray("4.6", "Forward Plus")
