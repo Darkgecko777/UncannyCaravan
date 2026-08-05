@@ -1,5 +1,5 @@
 # resources/city_data.gd
-# Static definition for a city / market hub on Athas.
+# Static definition for a city / market hub.
 # All instances live as .tres in data/cities/
 
 class_name CityData

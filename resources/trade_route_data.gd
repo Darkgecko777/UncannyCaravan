@@ -1,6 +1,6 @@
 # resources/trade_route_data.gd
 # Static definition for a trade route between cities.
-# All instances live as .tres in data/routes/ (to be added in Phase 2).
+# All instances live as .tres in data/routes/
 
 class_name TradeRouteData
 extends Resource
